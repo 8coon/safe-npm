@@ -6,10 +6,10 @@ const cp = require('child_process');
 
 const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/i, /^audit$/i];
 
-console.log('[s-npm]', ...process.argv);
+console.log('[npms]', ...process.argv);
 
 // Install alias
-if (process.argv[2] === 'init-s-npm') {
+if (process.argv[2] === 'init-npms') {
     const data = `
 export PATH=${__dirname}/bin:$PATH
 `;
@@ -45,11 +45,11 @@ if (!installCommands.some((command) => {
 
 // Determine current node version
 const nodeVersion = process.versions.node.split('.')[0];
-console.log(`[s-npm] Using node v${nodeVersion}...`);
+console.log(`[npms] Using node v${nodeVersion}...`);
 
 // Determine working dir and important paths
 const random = crypto.randomBytes(8).toString('hex');
-const containerName = `s-npm_${nodeVersion}`;
+const containerName = `npms_${nodeVersion}`;
 const tempDir = path.resolve(`.${containerName}_${random}`);
 
 const files = [
