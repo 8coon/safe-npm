@@ -2,7 +2,7 @@
   "name": "safe-npm",
   "version": "0.0.1",
   "bin": {
-    "npm-s": "bin/s-npm"
+    "npms": "bin/npms"
   },
   "main": "index.js",
   "scripts": {
