@@ -5,6 +5,19 @@ const path = require('path');
 const crypto = require('crypto');
 const cp = require('child_process');
 
+const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/, /^audit$/];
+
+if (!installCommands.some((command) => {
+    return command.test(process.argv[2]);
+})) {
+    cp.spawnSync('npm', process.argv, {
+        stdio: [process.stdin, process.stdout, process.stderr],
+        encoding: 'utf-8',
+    });
+
+    return;
+}
+
 // Determine current node version
 const nodeVersion = process.versions.node.split('.')[0];
 console.log(`[npm-s] Using node v${nodeVersion}...`);
