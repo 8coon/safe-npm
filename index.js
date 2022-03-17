@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -7,6 +6,32 @@ const cp = require('child_process');
 
 const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/, /^audit$/];
 
+console.log('[npm-s]', ...process.argv);
+
+// Install alias
+if (process.argv[2] === 'init-npm-s') {
+    const data = `
+export PATH=${__dirname}/bin:$PATH
+`;
+
+    const bashDir = path.join(os.homedir(), '.bash_profile');
+    const zshDir = path.join(os.homedir(), '.zprofile');
+
+    [bashDir, zshDir].forEach((dir) => {
+        if (fs.existsSync(dir)) {
+            if (fs.readFileSync(dir, 'utf-8').includes(data)) {
+                return;
+            }
+
+            fs.appendFileSync(dir, data, 'utf-8');
+            console.log(`[npm-s] ${dir} updated.`);
+        }
+    });
+
+    return;
+}
+
+// Run "safe" npm commands outside Docker
 if (!installCommands.some((command) => {
     return command.test(process.argv[2]);
 })) {
@@ -45,7 +70,7 @@ files.forEach((file) => {
     }
 });
 
-// Run the command in docker
+// Run the command in Docker
 try {
     cp.spawnSync('docker', [
         'run',

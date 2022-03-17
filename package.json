@@ -2,7 +2,7 @@
   "name": "npm-s",
   "version": "0.0.0",
   "bin": {
-    "npm-s": "index.js"
+    "npm-s": "bin/npm-s"
   },
   "main": "index.js",
   "scripts": {
