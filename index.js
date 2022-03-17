@@ -49,7 +49,8 @@ console.log(`[npm-s] Using node v${nodeVersion}...`);
 
 // Determine working dir and important paths
 const random = crypto.randomBytes(8).toString('hex');
-const tempDir = path.resolve(`.npm-s_${nodeVersion}_${random}`);
+const containerName = `npm-s_${nodeVersion}`;
+const tempDir = path.resolve(`.${containerName}_${random}`);
 
 const files = [
     'package.json',
@@ -70,6 +71,17 @@ files.forEach((file) => {
     }
 });
 
+//Remove old container
+try {
+    cp.spawnSync('docker', ['container', 'rm', containerName], {
+        stdio: [process.stdin, process.stdout, process.stderr],
+        encoding: 'utf-8',
+    });
+} catch (error) {
+    console.error(error);
+    process.exitCode = 1;
+}
+
 // Run the command in Docker
 try {
     cp.spawnSync('docker', [
@@ -78,6 +90,7 @@ try {
         '-v', tempDir + ':' + '/project',
         '-v', path.resolve('./node_modules') + ':/project/node_modules',
         '-w', '/project',
+        '--name', containerName,
         `node:${nodeVersion}-slim`,
         'npm',
         ...process.argv.slice(2),
