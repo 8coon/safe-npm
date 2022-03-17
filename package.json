@@ -1,0 +1,11 @@
+{
+  "name": "npm-s",
+  "version": "0.0.0",
+  "bin": {
+    "npm-s": "index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
