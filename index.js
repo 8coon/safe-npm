@@ -4,7 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 const cp = require('child_process');
 
-const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/i, /^audit$/i];
+const installCommands = [/^ci$/i, /^i$/i, /^install/i, /^uninstall$/i, /^update$/i, /^audit$/i];
 
 console.log('[npms]', ...process.argv);
 
