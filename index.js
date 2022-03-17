@@ -6,10 +6,10 @@ const cp = require('child_process');
 
 const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/i, /^audit$/i];
 
-console.log('[npm-s]', ...process.argv);
+console.log('[s-npm]', ...process.argv);
 
 // Install alias
-if (process.argv[2] === 'init-npm-s') {
+if (process.argv[2] === 'inits-npm') {
     const data = `
 export PATH=${__dirname}/bin:$PATH
 `;
@@ -24,7 +24,7 @@ export PATH=${__dirname}/bin:$PATH
             }
 
             fs.appendFileSync(dir, data, 'utf-8');
-            console.log(`[npm-s] ${dir} updated.`);
+            console.log(`[s-npm] ${dir} updated.`);
         }
     });
 
@@ -45,11 +45,11 @@ if (!installCommands.some((command) => {
 
 // Determine current node version
 const nodeVersion = process.versions.node.split('.')[0];
-console.log(`[npm-s] Using node v${nodeVersion}...`);
+console.log(`[s-npm] Using node v${nodeVersion}...`);
 
 // Determine working dir and important paths
 const random = crypto.randomBytes(8).toString('hex');
-const containerName = `npm-s_${nodeVersion}`;
+const containerName = `s-npm_${nodeVersion}`;
 const tempDir = path.resolve(`.${containerName}_${random}`);
 
 const files = [
