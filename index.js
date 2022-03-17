@@ -11,6 +11,7 @@ console.log('[npms]', ...process.argv);
 // Install alias
 if (process.argv[2] === 'init-npms') {
     const data = `
+# npms do not edit this commend and the following line manually
 export PATH=${__dirname}/bin:$PATH
 `;
 
@@ -35,7 +36,7 @@ export PATH=${__dirname}/bin:$PATH
 if (!installCommands.some((command) => {
     return command.test(process.argv[2]);
 })) {
-    cp.spawnSync('npm', process.argv, {
+    cp.spawnSync('npm', process.argv.slice(2), {
         stdio: [process.stdin, process.stdout, process.stderr],
         encoding: 'utf-8',
     });

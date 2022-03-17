@@ -9,7 +9,7 @@ certain types of
 This will create `npms` alias for the current profile:
 
 ```bash
-npx safe-npm init-npms
+npx safe-npm@latest init-npms
 ```
 
 ## Usage
