@@ -9,7 +9,7 @@ const installCommands = [/^ci$/i, /^install/i, /^uninstall$/i, /^update$/i, /^au
 console.log('[s-npm]', ...process.argv);
 
 // Install alias
-if (process.argv[2] === 'inits-npm') {
+if (process.argv[2] === 'init-s-npm') {
     const data = `
 export PATH=${__dirname}/bin:$PATH
 `;
