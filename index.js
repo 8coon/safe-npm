@@ -88,6 +88,9 @@ try {
     cp.spawnSync('docker', [
         'run',
         '-it',
+        '--cap-drop=ALL',
+        '--security-opt', 'no-new-privileges',
+        '-u', '1000:1000',
         '-v', tempDir + ':' + '/project',
         '-v', path.resolve('./node_modules') + ':/project/node_modules',
         '-w', '/project',
